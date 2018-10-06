@@ -1,5 +1,12 @@
 <?php
 
+    main::start("example.csv");
+
+    class main  {
+        static public function start($filename) {
+            $records = csv::getRecords($filename);
+        }
+    }
 
     class csv {
         static public function getRecords($filename) {
