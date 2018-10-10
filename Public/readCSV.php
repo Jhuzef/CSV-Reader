@@ -5,10 +5,17 @@
     class main  {
         static public function start($filename) {
             $records = csv::getRecords($filename);
+
             $html = html::createTable($records);
-            print $html;
+            system::print($html);
         }
     }
+
+    class system {
+        public static function print($data) {
+            print $data;
+    }
+}
 
     class html {
 
@@ -70,11 +77,13 @@
             $count = 0;
             while(! feof($file))
             {
-                $record = fgetcsv($file);
+                $record = fgets($file);
+                $string = explode(",", $record);
+
                 if($count == 0) {
-                    $fieldNames = $record;
+                    $fieldNames = $string;
                 } else {
-                    $records[] = recordFactory::create($fieldNames, $record);
+                    $records[] = recordFactory::create($fieldNames, $string);
                 }
                 $count++;
             }
